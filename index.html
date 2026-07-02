@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>アンケート調査</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ============================================================ -->
+  <!-- STEP 1: インフォームドコンセント / INFORMED CONSENT             -->
+  <!-- ============================================================ -->
+  <section id="step-consent" class="step active">
+    <div class="top-strip"></div>
+    <div class="card">
+      <h1>調査へのご協力のお願い</h1>
+      <p>ご協力いただきありがとうございます。始める前に、以下の内容をご確認ください。</p>
+    </div>
+
+    <div class="question-card">
+      <div class="consent-body">この調査は、言語や表現の違いによって、セキュリティに関する警告メッセージの受け取り方がどのように変わるかを調べる心理学的な研究です。
+
+・調査の中では、ウェブブラウザの警告のように見える「模擬メッセージ」が表示されます。これは研究のために作成されたものであり、実際のマルウェアや不正なソフトウェアではありません。表示される内容に従って操作を行っても、あなたの端末やデータに影響が及ぶことは一切ありません。
+
+・所要時間はおよそ5分です。
+・回答はすべて匿名で記録され、個人が特定されることはありません。
+・回答内容は研究目的以外には使用されません。
+・参加は任意です。回答中であっても、いつでも中断・退出できます。
+・調査は途中でブラウザの操作（ボタンを押す、閉じるなど）をお願いする場面がありますが、これはすべて模擬的なものです。
+
+ご質問がある場合は、下記の担当者までご連絡ください。
+担当者：［担当者名を記入］　連絡先：［メールアドレスを記入］
+
+以上の内容にご同意いただける方は、下のチェックボックスを選択し、「同意して開始する」ボタンを押してください。</div>
+
+      <div class="consent-check">
+        <input type="checkbox" id="consent-checkbox" />
+        <label for="consent-checkbox">上記の説明を読み、内容を理解した上で、本調査への参加に同意します。</label>
+      </div>
+
+      <div id="consent-error" class="error-banner hidden">同意のチェックボックスを選択してから進んでください。</div>
+
+      <div class="actions-row">
+        <span></span>
+        <button id="btn-start" class="btn btn-primary">同意して開始する</button>
+      </div>
+    </div>
+    <p class="footer-note">本調査は研究目的でのみ使用され、フィッシングやマルウェアの配布とは一切関係ありません。</p>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <!-- STEP 2: 実験（模擬警告モーダル + アンケート） / EXPERIMENT       -->
+  <!-- ============================================================ -->
+  <section id="step-experiment" class="step">
+
+    <div id="survey-wrap" class="survey-locked">
+      <div class="top-strip"></div>
+      <div class="card">
+        <h1>アンケート</h1>
+        <p>先ほど画面に表示されたメッセージについて、以下の質問にお答えください。回答は匿名で記録されます。</p>
+      </div>
+
+      <!-- Q0: 英語レベル -->
+      <div class="question-card">
+        <p class="question-title">あなたの英語レベルを教えてください。（CEFRレベルで回答してください）<span class="question-required">＊</span></p>
+        <p class="question-hint">わからない場合は、下の備考欄に英語能力試験等のスコアをご記入ください。</p>
+        <div id="q-cefr">
+          <div class="option-row"><input type="radio" name="cefr" id="cefr-a1" value="A1"><label for="cefr-a1">A1</label></div>
+          <div class="option-row"><input type="radio" name="cefr" id="cefr-a2" value="A2"><label for="cefr-a2">A2</label></div>
+          <div class="option-row"><input type="radio" name="cefr" id="cefr-b1" value="B1"><label for="cefr-b1">B1</label></div>
+          <div class="option-row"><input type="radio" name="cefr" id="cefr-b2" value="B2"><label for="cefr-b2">B2</label></div>
+          <div class="option-row"><input type="radio" name="cefr" id="cefr-c1" value="C1"><label for="cefr-c1">C1</label></div>
+          <div class="option-row"><input type="radio" name="cefr" id="cefr-c2" value="C2"><label for="cefr-c2">C2</label></div>
+          <div class="option-row"><input type="radio" name="cefr" id="cefr-unknown" value="わからない"><label for="cefr-unknown">わからない</label></div>
+        </div>
+        <input type="text" id="cefr-note" placeholder="備考欄（例：TOEIC 850点、英検準1級 など）" />
+      </div>
+
+      <!-- Q1: 鍵 -->
+      <div class="question-card">
+        <p class="question-title">「家に入ろうとしたとき、気づいたら家の鍵がなかった」とき、あなたはどのくらい恐怖を感じますか？<span class="question-required">＊</span></p>
+        <p class="question-hint">1〜5で回答してください（5が最も恐怖を感じる）</p>
+        <div class="scale-row" data-scale="fear_key"></div>
+        <div class="scale-labels"><span>1（全く感じない）</span><span>5（非常に感じる）</span></div>
+      </div>
+
+      <!-- Q2: 通り魔 -->
+      <div class="question-card">
+        <p class="question-title">「あなたが住んでいる地区に通り魔が出て、その人がまだ逮捕されていない」とき、あなたはどのくらい恐怖を感じますか？<span class="question-required">＊</span></p>
+        <p class="question-hint">1〜5で回答してください（5が最も恐怖を感じる）</p>
+        <div class="scale-row" data-scale="fear_stalker"></div>
+        <div class="scale-labels"><span>1（全く感じない）</span><span>5（非常に感じる）</span></div>
+      </div>
+
+      <!-- Q3: 黒い車 -->
+      <div class="question-card">
+        <p class="question-title">「あなたの家の前に黒い車が一週間続けてとまっている」とき、あなたはどのくらい恐怖を感じますか？<span class="question-required">＊</span></p>
+        <p class="question-hint">1〜5で回答してください（5が最も恐怖を感じる）</p>
+        <div class="scale-row" data-scale="fear_car"></div>
+        <div class="scale-labels"><span>1（全く感じない）</span><span>5（非常に感じる）</span></div>
+      </div>
+
+      <!-- Q4: メッセージ再掲 + 行動選択 -->
+      <div class="question-card">
+        <p class="question-title">先ほどあなたのスマホ・PC画面に表示されたメッセージは、以下のようなものでした。</p>
+        <div class="consent-body" id="scam-message-recap" style="background:#f7f5fb; padding:12px 14px; border-radius:6px; font-size:13.5px;"></div>
+        <p class="question-title" style="margin-top:18px;">あなたは以下のうちどのような行動をとりますか？<span class="question-required">＊</span></p>
+        <div>
+          <div class="option-row"><input type="radio" name="action" id="action-1" value="リンクを開く"><label for="action-1">① リンクを開く</label></div>
+          <div class="option-row"><input type="radio" name="action" id="action-2" value="内容についてネットで検索する"><label for="action-2">② 内容についてネットで検索する</label></div>
+          <div class="option-row"><input type="radio" name="action" id="action-3" value="メッセージを無視して画面を閉じる"><label for="action-3">③ メッセージを無視して画面を閉じる</label></div>
+          <div class="option-row"><input type="radio" name="action" id="action-4" value="誰かに相談する"><label for="action-4">④ 誰かに相談する</label></div>
+        </div>
+      </div>
+
+      <!-- Q5: 恐怖レベル -->
+      <div class="question-card">
+        <p class="question-title">先ほどのメッセージに対して、あなたはどのくらい恐怖を感じましたか？<span class="question-required">＊</span></p>
+        <p class="question-hint">1〜5で回答してください（5が最も恐怖を感じる）</p>
+        <div class="scale-row" data-scale="scam_fear"></div>
+        <div class="scale-labels"><span>1（全く感じない）</span><span>5（非常に感じる）</span></div>
+      </div>
+
+      <div id="submit-error" class="error-banner hidden">すべての質問にお答えください。</div>
+
+      <div class="actions-row">
+        <span></span>
+        <button id="btn-submit" class="btn btn-primary">回答を送信する</button>
+      </div>
+    </div>
+
+    <!-- ---------------- 模擬詐欺メッセージ モーダル ---------------- -->
+    <div id="scam-overlay" class="overlay hidden">
+      <div class="scam-modal">
+        <button class="scam-modal-close" id="scam-close-x" aria-label="close">✕</button>
+        <div class="scam-modal-header">
+          <span class="icon">⚠️</span>
+          <h2 id="scam-title">セキュリティ警告</h2>
+        </div>
+        <div class="scam-modal-body">
+          <p class="scam-modal-message" id="scam-message"></p>
+          <div class="scam-countdown" id="scam-countdown">
+            <span id="scam-countdown-label">残り時間</span>
+            <span class="time" id="scam-timer">02:00</span>
+          </div>
+          <div class="scam-modal-actions">
+            <button class="scam-btn-download" id="scam-download"></button>
+            <button class="scam-btn-ignore" id="scam-ignore"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================ -->
+  <!-- STEP 3: 送信完了 / 種明かし（デブリーフィング）                   -->
+  <!-- ============================================================ -->
+  <section id="step-done" class="step">
+    <div class="top-strip"></div>
+    <div class="card">
+      <h1>回答ありがとうございました</h1>
+      <p class="consent-body" style="margin-top:12px;">このテストは、日本語が第一言語（L1）の英語使用者にとって、詐欺的メッセージが①異なる言語で②異なる枠組みで表示されたとき、どのような受け取り方がなされるかの傾向を調査するために作成されました。
+
+先ほど表示されたメッセージは実験用に作成された模擬のものであり、実際のマルウェアやウイルスではありません。あなたの端末やデータには一切影響がありませんのでご安心ください。
+
+ご協力に感謝します。</p>
+    </div>
+  </section>
+
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
