@@ -7,7 +7,7 @@
 //    に出力されるだけで、どこにも保存されません（テスト用）。
 // ============================================================
 
-const GAS_ENDPOINT = ""; // 例: "https://script.google.com/macros/s/XXXXXXXX/exec"
+const GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbx3ihhsV9CsfSZZZXBAfD90teAOiNWOeEvXKYbFejCl9i86oduIaVS_h6cgV_VwXUiW/exec";
 
 // countdown duration shown on the scam modal, in seconds
 const COUNTDOWN_SECONDS = 120;
